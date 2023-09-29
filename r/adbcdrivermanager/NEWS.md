@@ -1,3 +1,8 @@
+# adbcdrivermanager 0.7.0.1
+
+- Fix for a MacOS 10.13 build failure and memory leak identified by the
+  CRAN checks.
+
 # adbcdrivermanager 0.7.0
 
 - Update upstream ADBC libraries to 0.7.0.
