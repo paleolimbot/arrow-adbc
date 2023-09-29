@@ -1,6 +1,5 @@
 
-An update to reflect the updated upstream sources for the latest
-Apache Arrow ADBC libraries version.
+An update to fix the check errors shown on the package check page.
 
 ## R CMD check results
 
