@@ -1,3 +1,3 @@
-# adbcpostgresql 0.6.0
+# adbcpostgresql 0.8.0
 
 * Initial CRAN submission.
