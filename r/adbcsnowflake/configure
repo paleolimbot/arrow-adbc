@@ -22,7 +22,7 @@ RSCRIPT_BIN="$R_HOME/bin/Rscript"
 # guidance regarding large dependency sources. When non-false, this script
 # will fail if the download fails or if checksum verification fails on
 # the downloaded file.
-DOWNLOAD_DEPENDENCY_ARCHIVE="false"
+DOWNLOAD_DEPENDENCY_ARCHIVE="true"
 
 # Run bootstrap.R. This will have already run if we are installing a source
 # package built with pkgbuild::build() with pkgbuild >1.4.0; however, we
