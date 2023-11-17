@@ -44,7 +44,15 @@ verify <- function() {
   }
 
   digest_check <- read_check("tools/src-go-adbc-vendor.zip.sha512")
-  identical(digest_check, digest)
+  result <- identical(digest_check, digest)
+
+  if (isTRUE(result)) {
+    result
+  } else {
+    cat(sprintf("Digest: %s\n", digest))
+    cat(sprintf("Check : %s\n", digest_check))
+    FALSE
+  }
 }
 
 result <- try(verify())
