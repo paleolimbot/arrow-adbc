@@ -62,8 +62,13 @@ if [ -f tools/src-go-adbc-vendor.zip ]; then
     cd ..
     "$RSCRIPT_BIN" tools/extract-go-vendor-archive.R
   else
-    echo "Checksum verification failed for vendored dependency archive"
-    exit 1
+    cd ..
+    if "$RSCRIPT_BIN" tools/verify-go-vendor-archive.R ; then
+      "$RSCRIPT_BIN" tools/extract-go-vendor-archive.R
+    else
+      echo "Checksum verification failed for vendored dependency archive"
+      exit 1
+    fi
   fi
 fi
 
