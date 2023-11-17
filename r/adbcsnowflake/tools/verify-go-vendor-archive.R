@@ -32,12 +32,12 @@ read_check <- function(f) {
 }
 
 verify <- function() {
-  if (requireNamespace("openssl", quietly = TRUE)) {
-    cat("Using openssl::sha512() to verify digest\n")
-    digest <- digest_openssl("tools/src-go-adbc-vendor.zip")
-  } else if (requireNamespace("openssl", quietly = TRUE)) {
+  if (requireNamespace("digest", quietly = TRUE)) {
     cat("Using digest::digest() to verify digest\n")
     digest <- digest_digest("tools/src-go-adbc-vendor.zip")
+  } else if (requireNamespace("openssl", quietly = TRUE)) {
+    cat("Using openssl::sha512() to verify digest\n")
+    digest <- digest_openssl("tools/src-go-adbc-vendor.zip")
   } else {
     cat("openssl nor digest package was installed to verify digest\n")
     return(FALSE)
