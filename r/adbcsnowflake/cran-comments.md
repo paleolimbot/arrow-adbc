@@ -9,6 +9,11 @@ during build to comply with CRAN policy. Simon has kindly installed Go on
 the MacOS runner...to build on Windows it would be necessary to install Go
 and set GO_BIN if installed in a non-default location.
 
+Following the first submission, this package also correctly sets GOPATH
+and GOCACHE to ensure that files are not written to the user's home directory.
+Additionally, fallback checksum detection using the openssl or digest
+packages is included in the event that `shasum` is not available.
+
 [1] https://stat.ethz.ch/pipermail/r-package-devel/2023q3/009329.html
 
 ## R CMD check results
