@@ -125,12 +125,8 @@ fi
 CC=`"$R_BIN" CMD config CC`
 CXX=`"$R_BIN" CMD config CXX`
 
-# clang and gcc use different symbol-hiding syntax and we need to
-# make sure to hide any Adbc* symbols that might conflict with another
-# driver.
-if "$R_BIN" CMD config CC | grep -e "clang" >/dev/null ; then
-  SYMBOL_ARGS="-Wl,-exported_symbol,_adbcsnowflake_c_snowflake -Wl,-exported_symbol,_R_init_adbcsnowflake"
-elif "$R_BIN" CMD config CC | grep -e "gcc" >/dev/null ; then
+# Attempt to hide symbols where possible
+if "$R_BIN" CMD config CC | grep -e "gcc" >/dev/null ; then
   SYMBOL_ARGS="-Wl,--version-script=go/symbols.map"
 fi
 
