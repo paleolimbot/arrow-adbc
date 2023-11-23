@@ -14,6 +14,10 @@ and GOCACHE to ensure that files are not written to the user's home directory.
 Additionally, fallback checksum detection using the openssl or digest
 packages is included in the event that `shasum` is not available.
 
+Following the second submission, this package also correctly disables the
+Snowflake Go driver's OCSP cache, which created files in the user's home
+directory in violation of CRAN policy.
+
 [1] https://stat.ethz.ch/pipermail/r-package-devel/2023q3/009329.html
 
 ## R CMD check results
