@@ -16,6 +16,7 @@
 # under the License.
 
 go_bin <- Sys.getenv("GO_BIN", unname(Sys.which("go")))
+pkg_root <- getwd()
 
 withr::with_dir("src/go/adbc", {
   system(paste(shQuote(go_bin), "mod vendor -v"))
@@ -43,6 +44,22 @@ withr::with_dir("src/go/adbc", {
 
     dst_go_arrow_cdata_dir <- "vendor/github.com/apache/arrow/go/v14/arrow/cdata/"
     stopifnot(file.copy(src_go_arrow_cdata_arrow_dir, dst_go_arrow_cdata_dir, recursive = TRUE))
+
+
+    # We need to patch Snowflake's Go connector because it creates a file
+    # in the home directory when the module is initialized (i.e., on DLL
+    # load). We don't have the opportunity to set an environment variable
+    # before this happens, which would let us either disable or redirect
+    # the folder creation into the temp directory. This workaround changes
+    # the default to "opt-in" (i.e., you can set the relevant env variable
+    # to true to enable the cache, but by default the cache is disabled).
+    # In addition, a small change is required because not setting up the
+    # OCSP cache resulted in a panic (that also occurs if you set the
+    # relevant env var to false without this patch).
+    go_snowflake_ocsp <- "vendor/github.com/snowflakedb/gosnowflake/ocsp.go"
+    go_snowflake_ocsp_patched <- file.path(pkg_root, "tools", "ocsp.go.patched")
+    unlink(go_snowflake_ocsp)
+    stopifnot(file.copy(go_snowflake_ocsp_patched, go_snowflake_ocsp))
   })
 
   # github.com/zeebo/xxh3/Makefile does not end in LF, giving a check NOTE

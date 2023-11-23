@@ -13,3 +13,4 @@
 ^src/\.go-cache$
 ^src/\.go-path$
 ^tools/src-go-adbc-vendor\.zip$
+^src/go/adbc/vendor$

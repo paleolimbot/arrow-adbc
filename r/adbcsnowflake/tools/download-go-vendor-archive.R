@@ -19,7 +19,7 @@ uri <- Sys.getenv("R_ADBCSNOWFLAKE_VENDORED_DEPENDENCY_URI", "")
 
 if (identical(uri, "")) {
   # Only a fixed value for CRAN releases
-  uri <- "https://zenodo.org/records/10136707/files/src-go-adbc-vendor.zip?download=1"
+  uri <- "https://zenodo.org/records/10201670/files/src-go-adbc-vendor.zip?download=1"
 }
 
 cat(sprintf("Downloading vendored dependency archive from %s\n", uri))
