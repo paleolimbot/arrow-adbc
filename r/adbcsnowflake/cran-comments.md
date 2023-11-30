@@ -18,6 +18,9 @@ Following the second submission, this package also correctly disables the
 Snowflake Go driver's OCSP cache, which created files in the user's home
 directory in violation of CRAN policy.
 
+Following the third submission, this package correctly sets GOMAXPROCS
+to constrain CPU core usage during `go build`.
+
 [1] https://stat.ethz.ch/pipermail/r-package-devel/2023q3/009329.html
 
 ## R CMD check results
