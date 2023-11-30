@@ -24,6 +24,16 @@ RSCRIPT_BIN="$R_HOME/bin/Rscript"
 # the downloaded file.
 DOWNLOAD_DEPENDENCY_ARCHIVE="true"
 
+# CRAN checks CPU time to enforce ~2 cores for building. Set GOMAXPROCS to 1
+# when building on CRAN to be safe.
+if [ ! "$DOWNLOAD_DEPENDENCY_ARCHIVE" = "false" ] && [ -z "$GOMAXPROCS" ]; then
+  echo "Using GOMAXPROCS=1 for go build"
+  echo "Set GOMAXPROCS to a higher value in ~/.Renviron for a faster build"
+  GOMAXPROCS=1
+elif [ ! -z "$GOMAXPROCS" ]; then
+  echo "Using GOMAXPROCS=$GOMAXPROCS for go build"
+fi
+
 # Run bootstrap.R. This will have already run if we are installing a source
 # package built with pkgbuild::build() with pkgbuild >1.4.0; however, we
 # run it again in case this is R CMD INSTALL on a directory or
@@ -149,6 +159,7 @@ sed \
   -e "s|@cflags@|$PKG_CPPFLAGS|" \
   -e "s|@cc@|$CC|" \
   -e "s|@cxx@|$CXX|" \
+  -e "s|@nproc@|$GOMAXPROCS|" \
   src/Makevars.in > src/Makevars
 
 if [ -f "src/go/adbc/pkg/snowflake/driver.go" ]; then
