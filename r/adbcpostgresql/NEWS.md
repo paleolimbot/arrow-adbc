@@ -1,12 +1,12 @@
-# adbcdrivermanager 0.9.0
+# adbcpostgresql 0.9.0
 
 - Update upstream ADBC libraries to version 0.9.0.
 
-# adbcdrivermanager 0.8.0
+# adbcpostgresql 0.8.0
 
 - Update upstream ADBC libraries to version 0.8.0.
 
-# adbcdrivermanager 0.7.0
+# adbcpostgresql 0.7.0
 
 - Update upstream ADBC libraries to version 0.7.0.
 
