@@ -74,9 +74,6 @@ stmt <- adbc_statement_init(con)
 # in advance for testing purposes
 adbc_statement_bind_stream(stmt, nycflights13::flights)
 
-# Set the query
-adbc_statement_set_sql_query(stmt, "SELECT * FROM flights")
-
 # Start executing the query. Results in ADBC are ArrowArrayStream objects,
 # which can be materialized using as.data.frame(), as_tibble(),
 # or converted to an arrow::RecordBatchReader using
