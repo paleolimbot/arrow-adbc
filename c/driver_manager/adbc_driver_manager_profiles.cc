@@ -211,7 +211,7 @@ AdbcStatusCode ProcessProfileValue(std::string_view key, std::string_view value,
     return ADBC_STATUS_OK;
   }
 
-  static const std::regex pattern(R"(\{\{\s*([^{}]*?)\s*\}\})");
+  std::regex pattern(R"(\{\{\s*([^{}]*?)\s*\}\})");
   auto end_of_last_match = value.begin();
   auto begin = std::regex_iterator(value.begin(), value.end(), pattern);
   auto end = decltype(begin){};
