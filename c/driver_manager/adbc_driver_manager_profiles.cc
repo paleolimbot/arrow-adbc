@@ -44,6 +44,10 @@ static const wchar_t* kAdbcProfilePath = L"ADBC_PROFILE_PATH";
 static const char* kAdbcProfilePath = "ADBC_PROFILE_PATH";
 #endif  // _WIN32
 
+// Regex pattern for profile value interpolation (e.g., {{ env_var(NAME) }})
+// In anonymous namespace to avoid ODR violations with LTO + ASAN
+static const std::regex kProfileInterpolationPattern(R"(\{\{\s*([^{}]*?)\s*\}\})");
+
 }  // namespace
 
 // FilesystemProfile needs external linkage for use in internal header
@@ -211,9 +215,8 @@ AdbcStatusCode ProcessProfileValue(std::string_view key, std::string_view value,
     return ADBC_STATUS_OK;
   }
 
-  std::regex pattern(R"(\{\{\s*([^{}]*?)\s*\}\})");
   auto end_of_last_match = value.begin();
-  auto begin = std::regex_iterator(value.begin(), value.end(), pattern);
+  auto begin = std::regex_iterator(value.begin(), value.end(), kProfileInterpolationPattern);
   auto end = decltype(begin){};
   std::match_results<std::string_view::iterator>::difference_type pos_last_match = 0;
 
